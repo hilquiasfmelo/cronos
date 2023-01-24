@@ -1,5 +1,6 @@
-import { keyframes, styled } from '@stitches/react'
-import { Heading, Text } from '@oabma-ui/react'
+import { Heading } from '@/components/Heading'
+import { Text } from '@/components/Text'
+import { keyframes, styled } from '@/styles'
 
 export const Container = styled('div', {
   maxWidth: 'calc(100vw - (100vw - 1160px) / 2)',
@@ -7,24 +8,22 @@ export const Container = styled('div', {
   height: '100vh',
   display: 'flex',
   alignItems: 'center',
-  gap: '5rem',
+  gap: '$20',
 })
 
 export const Hero = styled('div', {
   maxWidth: 480,
-  padding: '0 2.5rem',
+  padding: '0 $10',
 
   [`> ${Heading}`]: {
-    color: 'var(--gray600)',
-
     '@media(max-width: 600px)': {
       fontSize: '$6xl',
     },
   },
 
   [`> ${Text}`]: {
-    margin: '0.5rem',
-    color: 'var(--gray200)',
+    margin: '$2',
+    color: '$gray400',
   },
 })
 
@@ -35,7 +34,7 @@ const pulse = keyframes({
 })
 
 export const Preview = styled('div', {
-  paddingRight: '2rem',
+  paddingRight: '$8',
   overflow: 'hidden',
 
   img: {

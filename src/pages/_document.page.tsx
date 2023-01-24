@@ -1,7 +1,5 @@
+import { getCssText } from '@/styles'
 import { Html, Head, Main, NextScript } from 'next/document'
-import { createStitches } from '@stitches/react'
-
-export const { getCssText } = createStitches()
 
 export default function Document() {
   return (

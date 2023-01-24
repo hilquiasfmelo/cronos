@@ -9,9 +9,8 @@
     "lint": "next lint --fix"
   },
   "dependencies": {
+    "@hookform/resolvers": "^2.9.10",
     "@next/font": "13.1.3",
-    "@oabma-ui/react": "^2.0.0",
-    "@oabma-ui/tokens": "^1.1.0",
     "@stitches/react": "^1.2.8",
     "@types/node": "18.11.18",
     "@types/react": "18.0.27",
@@ -19,9 +18,13 @@
     "eslint": "8.32.0",
     "eslint-config-next": "13.1.3",
     "next": "13.1.3",
+    "phosphor-react": "^1.4.1",
     "react": "18.2.0",
     "react-dom": "18.2.0",
-    "typescript": "4.9.4"
+    "react-hook-form": "^7.42.1",
+    "react-toastify": "^9.1.1",
+    "typescript": "4.9.4",
+    "zod": "^3.20.2"
   },
   "devDependencies": {
     "@rocketseat/eslint-config": "^1.1.3"
