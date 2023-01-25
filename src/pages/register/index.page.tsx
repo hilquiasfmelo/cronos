@@ -1,4 +1,10 @@
-import { ArrowRight } from 'phosphor-react'
+import { useEffect } from 'react'
+import { ArrowRight, Spinner } from 'phosphor-react'
+import { z } from 'zod'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { useForm } from 'react-hook-form'
+import { useRouter } from 'next/router'
+import { AxiosError } from 'axios'
 
 import { Heading } from '@/components/Heading'
 import { MultiStep } from '@/components/MultiStep'
@@ -7,10 +13,9 @@ import { TextInput } from '@/components/TextInput'
 import { Button } from '@/components/Button'
 
 import { Container, Form, Header } from './styles'
-import { z } from 'zod'
-import { useForm } from 'react-hook-form'
-import { zodResolver } from '@hookform/resolvers/zod'
 import { Toast } from '@/utils/react-toastify/toasts'
+
+import { API } from '@/lib/axios'
 
 const registerFormSchema = z.object({
   username: z
@@ -27,18 +32,56 @@ const registerFormSchema = z.object({
 
 type RegisterFormData = z.infer<typeof registerFormSchema>
 
-async function handleRegister(data: RegisterFormData) {
-  console.log(data)
-}
-
 export default function Register() {
   const {
     register,
     handleSubmit,
+    setValue,
     formState: { errors, isSubmitting },
   } = useForm<RegisterFormData>({
     resolver: zodResolver(registerFormSchema),
   })
+
+  const router = useRouter()
+
+  /**
+   * Se existir a variável na URL, isso renderiza a página e busca o seu valor,
+   * e se mesma mudar, é adicionado o seu valor ao campo username.
+   */
+  useEffect(() => {
+    if (router.query.username) {
+      setValue('username', String(router.query.username))
+    }
+  }, [router.query?.username, setValue])
+
+  async function handleRegister(data: RegisterFormData) {
+    try {
+      await API.post('/users', {
+        username: data.username,
+        name: data.name,
+      })
+
+      Toast({
+        type: 'success',
+        message:
+          'Seu usuário foi criado com sucesso. É um prazer ter você aqui!',
+      })
+    } catch (err) {
+      if (err instanceof AxiosError && err?.response?.data?.message) {
+        Toast({
+          type: 'warn',
+          message: String(err.response.data.message),
+        })
+
+        return
+      }
+
+      Toast({
+        type: 'error',
+        message: 'Não foi possível cadastrar o usuário, tente novamente!',
+      })
+    }
+  }
 
   return (
     <Container>
@@ -87,7 +130,9 @@ export default function Register() {
         </label>
 
         {isSubmitting ? (
-          <p>Carregando...</p>
+          <Button disabled>
+            <Spinner />
+          </Button>
         ) : (
           <Button type="submit">
             Próximo passo

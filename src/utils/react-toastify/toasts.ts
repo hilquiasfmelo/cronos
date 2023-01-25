@@ -8,12 +8,17 @@ interface ToastProps {
 export function Toast({ message, type }: ToastProps) {
   const options: ToastOptions = {
     position: 'top-right',
-    autoClose: 3000,
+    autoClose: 4000,
     hideProgressBar: false,
     closeOnClick: true,
     pauseOnHover: true,
     draggable: true,
     progress: undefined,
+    style: {
+      color: '#505059',
+      borderColor: '#323238',
+      fontSize: '14px',
+    },
     theme: 'light',
     toastId: '',
   }

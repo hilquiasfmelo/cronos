@@ -1,5 +1,5 @@
-import { Zoom, ToastContainer } from 'react-toastify'
+import { Bounce, ToastContainer } from 'react-toastify'
 
 export function ToastProvider() {
-  return <ToastContainer transition={Zoom} />
+  return <ToastContainer transition={Bounce} />
 }

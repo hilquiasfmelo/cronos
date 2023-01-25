@@ -1,7 +1,8 @@
 import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { FlagCheckered } from 'phosphor-react'
+import { FlagCheckered, Spinner } from 'phosphor-react'
 import { useForm } from 'react-hook-form'
+import { useRouter } from 'next/router'
 
 import { Button } from '@/components/Button'
 import { TextInput } from '@/components/TextInput'
@@ -26,13 +27,17 @@ export function ClaimUsernameForm() {
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, isSubmitting },
   } = useForm<ClaimUsernameFormData>({
     resolver: zodResolver(claimUsernameFormSchema),
   })
 
+  const router = useRouter()
+
   async function handleClaimUsername(data: ClaimUsernameFormData) {
-    console.log(data)
+    const { username } = data
+
+    await router.push(`/register?username=${username}`)
   }
 
   return (
@@ -44,10 +49,16 @@ export function ClaimUsernameForm() {
           {...register('username')}
         />
 
-        <Button size="md" type="submit">
-          Iniciar
-          <FlagCheckered />
-        </Button>
+        {isSubmitting ? (
+          <Button disabled>
+            <Spinner />
+          </Button>
+        ) : (
+          <Button size="md" type="submit">
+            Iniciar
+            <FlagCheckered />
+          </Button>
+        )}
       </Form>
 
       <FormAnnotation>

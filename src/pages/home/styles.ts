@@ -5,7 +5,7 @@ import { keyframes, styled } from '@/styles'
 export const Container = styled('div', {
   maxWidth: 'calc(100vw - (100vw - 1160px) / 2)',
   marginLeft: 'auto',
-  height: '100vh',
+  height: '75vh',
   display: 'flex',
   alignItems: 'center',
   gap: '$20',
