@@ -8,9 +8,10 @@ export function BackgroundProvider() {
       <Image
         src={bgWave}
         fill
+        style={{ position: 'absolute', zIndex: -1 }}
         quality={100}
         priority
-        alt="Calendário com a logo da OAB"
+        alt="ondas em azul e branco"
       />
     </>
   )

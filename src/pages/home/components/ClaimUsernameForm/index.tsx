@@ -50,7 +50,7 @@ export function ClaimUsernameForm() {
         />
 
         {isSubmitting ? (
-          <Button disabled>
+          <Button variant="spinner" disabled>
             <Spinner />
           </Button>
         ) : (

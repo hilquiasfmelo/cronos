@@ -26,6 +26,7 @@ export const Form = styled(Box, {
   display: 'flex',
   flexDirection: 'column',
   gap: '$4',
+  boxShadow: 'rgba(0, 0, 0, 0.35) 5px 5px 15px',
 
   label: {
     display: 'flex',

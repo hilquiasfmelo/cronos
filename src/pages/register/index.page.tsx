@@ -66,6 +66,8 @@ export default function Register() {
         message:
           'Seu usuário foi criado com sucesso. É um prazer ter você aqui!',
       })
+
+      await router.push(`/register/connect-calendar`)
     } catch (err) {
       if (err instanceof AxiosError && err?.response?.data?.message) {
         Toast({
@@ -73,7 +75,7 @@ export default function Register() {
           message: String(err.response.data.message),
         })
 
-        return
+        return await router.push(`/register/connect-calendar`)
       }
 
       Toast({
@@ -130,7 +132,7 @@ export default function Register() {
         </label>
 
         {isSubmitting ? (
-          <Button disabled>
+          <Button variant="spinner" disabled>
             <Spinner />
           </Button>
         ) : (

@@ -15,9 +15,9 @@ export function Toast({ message, type }: ToastProps) {
     draggable: true,
     progress: undefined,
     style: {
-      color: '#505059',
-      borderColor: '#323238',
+      color: '#121214',
       fontSize: '14px',
+      boxShadow: 'rgba(0, 0, 0, 0.35) 5px 5px 15px',
     },
     theme: 'light',
     toastId: '',

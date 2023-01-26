@@ -7,6 +7,7 @@ export const Form = styled(Box, {
   gap: '$2',
   marginTop: '$4',
   padding: '$4',
+  boxShadow: 'rgba(0, 0, 0, 0.35) 5px 5px 15px',
 
   '@media(max-width: 600px)': {
     gridTemplateColumns: '1fr',
@@ -14,5 +15,5 @@ export const Form = styled(Box, {
 })
 
 export const FormAnnotation = styled('div', {
-  marginTop: '$2',
+  marginTop: '$3',
 })
