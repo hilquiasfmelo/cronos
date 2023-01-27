@@ -13,9 +13,10 @@ import { TextInput } from '@/components/TextInput'
 import { Button } from '@/components/Button'
 
 import { Container, Form, Header } from './styles'
-import { Toast } from '@/utils/react-toastify/toasts'
+import { Toast } from '@/lib/react-toastify/toasts'
 
 import { API } from '@/lib/axios'
+import { HeaderMain } from '@/components/Header'
 
 const registerFormSchema = z.object({
   username: z
@@ -75,7 +76,11 @@ export default function Register() {
           message: String(err.response.data.message),
         })
 
-        return await router.push(`/register/connect-calendar`)
+        setTimeout(async () => {
+          await router.push(`/register/connect-calendar`)
+        }, 1000)
+
+        return
       }
 
       Toast({
@@ -86,62 +91,66 @@ export default function Register() {
   }
 
   return (
-    <Container>
-      <Header>
-        <Heading as="strong">Bem-vindo ao Cronos! 👏🏻</Heading>
-        <Text size="sm">
-          Precisamos de algumas informações importantes para podermos criar o
-          seu perfil! E não se preocupe, você poderá editar todas essas
-          informações depois.
-        </Text>
+    <>
+      <HeaderMain />
 
-        <MultiStep size={4} currentStep={1} />
-      </Header>
-
-      <Form as="form" onSubmit={handleSubmit(handleRegister)}>
-        <label>
-          <Text as="strong" size="sm">
-            Nome de usuário
+      <Container>
+        <Header>
+          <Heading as="strong">Bem-vindo ao Cronos! 👏🏻</Heading>
+          <Text size="sm">
+            Precisamos de algumas informações importantes para podermos criar o
+            seu perfil! E não se preocupe, você poderá editar todas essas
+            informações depois.
           </Text>
-          <TextInput
-            prefix="oabma/"
-            placeholder="seu-usuario"
-            {...register('username')}
-          />
 
-          {/* Dispara um Toast de erro caso houver */}
-          {!!errors.username &&
-            Toast({
-              type: 'error',
-              message: String(errors.username.message),
-            })}
-        </label>
+          <MultiStep size={4} currentStep={1} />
+        </Header>
 
-        <label>
-          <Text as="strong" size="sm">
-            Nome de completo
-          </Text>
-          <TextInput placeholder="Seu nome" {...register('name')} />
+        <Form as="form" onSubmit={handleSubmit(handleRegister)}>
+          <label>
+            <Text as="strong" size="sm">
+              Nome de usuário
+            </Text>
+            <TextInput
+              prefix="oabma/"
+              placeholder="seu-usuario"
+              {...register('username')}
+            />
 
-          {/* Dispara um Toast de erro caso houver */}
-          {!!errors.name &&
-            Toast({
-              type: 'error',
-              message: String(errors.name.message),
-            })}
-        </label>
+            {/* Dispara um Toast de erro caso houver */}
+            {!!errors.username &&
+              Toast({
+                type: 'error',
+                message: String(errors.username.message),
+              })}
+          </label>
 
-        {isSubmitting ? (
-          <Button variant="spinner" disabled>
-            <Spinner />
-          </Button>
-        ) : (
-          <Button type="submit">
-            Próximo passo
-            <ArrowRight />
-          </Button>
-        )}
-      </Form>
-    </Container>
+          <label>
+            <Text as="strong" size="sm">
+              Nome de completo
+            </Text>
+            <TextInput placeholder="Seu nome" {...register('name')} />
+
+            {/* Dispara um Toast de erro caso houver */}
+            {!!errors.name &&
+              Toast({
+                type: 'error',
+                message: String(errors.name.message),
+              })}
+          </label>
+
+          {isSubmitting ? (
+            <Button variant="spinner" disabled>
+              <Spinner />
+            </Button>
+          ) : (
+            <Button type="submit">
+              Próximo passo
+              <ArrowRight />
+            </Button>
+          )}
+        </Form>
+      </Container>
+    </>
   )
 }

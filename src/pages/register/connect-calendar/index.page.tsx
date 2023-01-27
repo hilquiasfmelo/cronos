@@ -1,12 +1,15 @@
+import { useRouter } from 'next/router'
+import { signIn, useSession } from 'next-auth/react'
+import { ArrowRight, Plugs, PlugsConnected } from 'phosphor-react'
+
 import { Button } from '@/components/Button'
+import { HeaderMain } from '@/components/Header'
 import { Heading } from '@/components/Heading'
 import { MultiStep } from '@/components/MultiStep'
 import { Text } from '@/components/Text'
-import { signIn, useSession } from 'next-auth/react'
-import { ArrowRight, Plugs } from 'phosphor-react'
 
 import { Container, Header } from '../styles'
-import { ConnectBox, ConnectItem } from './styles'
+import { AuthError, ConnectBox, ConnectItem } from './styles'
 
 async function handleConnectCalendar() {
   await signIn('google')
@@ -14,37 +17,62 @@ async function handleConnectCalendar() {
 
 export default function ConnectCalendar() {
   const session = useSession()
+  const router = useRouter()
+
+  const isSignedIn = session.status === 'authenticated'
+  const hasAuthError = !!router.query.error
 
   return (
-    <Container>
-      <Header>
-        <Heading as="strong">Conecte sua agenda com o Google! </Heading>
-        <Text size="sm">
-          Conecte o seu calendário para verificar automaticamente as horas
-          ocupadas e livres como também as novas reservas à medida em que são
-          agendadas.
-        </Text>
+    <>
+      <HeaderMain />
 
-        <MultiStep size={4} currentStep={2} />
-      </Header>
+      <Container>
+        <Header>
+          <Heading as="strong">Conecte sua agenda com o Google! </Heading>
+          <Text size="sm">
+            Conecte o seu calendário para verificar automaticamente as horas
+            ocupadas e livres como também as novas reservas à medida em que são
+            agendadas.
+          </Text>
 
-      <ConnectBox>
-        <ConnectItem>
-          <Text>Google Calendar</Text>
-          <Button variant="secondary" size="sm" onClick={handleConnectCalendar}>
-            Conectar
-            <Plugs />
+          <MultiStep size={4} currentStep={2} />
+        </Header>
+
+        <ConnectBox>
+          <ConnectItem>
+            <Text>Google Calendar</Text>
+
+            {isSignedIn ? (
+              <Button size="sm" disabled>
+                Conectado
+                <PlugsConnected />
+              </Button>
+            ) : (
+              <Button
+                type="submit"
+                size="sm"
+                variant="secondary"
+                onClick={handleConnectCalendar}
+              >
+                Conectar
+                <Plugs />
+              </Button>
+            )}
+          </ConnectItem>
+
+          <Button type="submit" disabled={!isSignedIn}>
+            Próximo passo
+            <ArrowRight />
           </Button>
-        </ConnectItem>
+        </ConnectBox>
 
-        <Button type="submit">
-          Próximo passo
-          <ArrowRight />
-        </Button>
-      </ConnectBox>
-
-      <Text>{JSON.stringify(session.data?.user?.name)}</Text>
-      <Text>{JSON.stringify(session.status)}</Text>
-    </Container>
+        {hasAuthError && (
+          <AuthError size="md">
+            Falha ao se conectar ao Google, verifique se você habilitou as
+            permissões de acesso ao Google Calendar.
+          </AuthError>
+        )}
+      </Container>
+    </>
   )
 }

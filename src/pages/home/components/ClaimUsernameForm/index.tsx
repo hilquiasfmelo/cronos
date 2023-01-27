@@ -7,7 +7,7 @@ import { useRouter } from 'next/router'
 import { Button } from '@/components/Button'
 import { TextInput } from '@/components/TextInput'
 import { Text } from '@/components/Text'
-import { Toast } from '@/utils/react-toastify/toasts'
+import { Toast } from '@/lib/react-toastify/toasts'
 
 import { Form, FormAnnotation } from './styles'
 

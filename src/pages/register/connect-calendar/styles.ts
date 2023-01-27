@@ -1,5 +1,6 @@
 import { styled } from '@/styles'
 import { Box } from '@/components/Box'
+import { Text } from '@/components/Text'
 
 export const ConnectBox = styled(Box, {
   marginTop: '$6',
@@ -19,4 +20,9 @@ export const ConnectItem = styled('div', {
   fontWeight: '$medium',
 
   marginBottom: '$4',
+})
+
+export const AuthError = styled(Text, {
+  color: '$red500',
+  marginTop: '$4',
 })
