@@ -11,16 +11,18 @@ import { Text } from '@/components/Text'
 import { Container, Header } from '../styles'
 import { AuthError, ConnectBox, ConnectItem } from './styles'
 
-async function handleConnectCalendar() {
-  await signIn('google')
-}
-
 export default function ConnectCalendar() {
   const session = useSession()
   const router = useRouter()
 
   const isSignedIn = session.status === 'authenticated'
   const hasAuthError = !!router.query.error
+
+  async function handleConnectCalendar() {
+    await signIn('google')
+  }
+
+  console.log(session)
 
   return (
     <>
