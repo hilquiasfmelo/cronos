@@ -16,10 +16,8 @@ export const Button = styled('button', {
   borderRadius: '$sm',
   fontSize: '$sm',
   fontWeight: '$bold',
-  fontFamily: '$default',
   textAlign: 'center',
   minWidth: 120,
-  boxSizing: 'border-box',
   padding: '0 $4',
 
   display: 'flex',

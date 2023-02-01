@@ -22,7 +22,9 @@ export default function ConnectCalendar() {
     await signIn('google')
   }
 
-  console.log(session)
+  async function handleNavigateToNextStep() {
+    await router.push('/register/time-appointments')
+  }
 
   return (
     <>
@@ -62,7 +64,11 @@ export default function ConnectCalendar() {
             )}
           </ConnectItem>
 
-          <Button type="submit" disabled={!isSignedIn}>
+          <Button
+            type="submit"
+            disabled={!isSignedIn}
+            onClick={handleNavigateToNextStep}
+          >
             Próximo passo
             <ArrowRight />
           </Button>
