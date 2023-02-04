@@ -3,7 +3,7 @@ import { SessionProvider } from 'next-auth/react'
 
 import { globalStyles } from '../styles/global'
 import { ToastProvider } from '@/lib/react-toastify'
-import { BackgroundProvider } from './background-provider'
+// import { BackgroundProvider } from './background-provider'
 
 import 'react-toastify/dist/ReactToastify.css'
 
@@ -17,7 +17,7 @@ export default function App({
     <SessionProvider session={session}>
       <Component {...pageProps} />
       <ToastProvider />
-      <BackgroundProvider />
+      {/* <BackgroundProvider /> */}
     </SessionProvider>
   )
 }
