@@ -25,7 +25,7 @@ export function HeaderMain() {
 
       Toast({
         type: 'info',
-        message: 'Você foi deslogado, loga-se quando quiser 🚀',
+        message: 'Você foi deslogado, acesse quando quiser 🚀',
       })
     })
   }
@@ -52,8 +52,8 @@ export function HeaderMain() {
       ) : (
         <SessionStatus>
           <Button
-            onClick={() => {
-              router.push('/')
+            onClick={async () => {
+              await router.push('/')
             }}
           >
             <SignIn />

@@ -24,16 +24,17 @@ export default async function handleCreateUser(
       username,
     },
   })
+
   if (userExist) {
     // Set o ID do usuário nos cookies
     setCookie({ res }, '@cronos:userId', userExist.id, {
-      maxAge: 60 * 60 * 24, // 1 day
+      maxAge: 60 * 60 * 10, // 10h
       // Todas as rotas poderão acessar os cookies
       path: '/',
     })
 
     return res.status(400).json({
-      message: 'Usuário já cadastrado, conecte-se com a sua conta do Google',
+      message: 'Usuário já cadastrado, conecte-se com a sua conta do Google.',
     })
   }
 

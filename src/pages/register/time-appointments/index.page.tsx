@@ -5,12 +5,16 @@ import { Heading } from '@/components/Heading'
 import { MultiStep } from '@/components/MultiStep'
 import { Text } from '@/components/Text'
 import { TextInput } from '@/components/TextInput'
+import { API } from '@/lib/axios'
 import { Toast } from '@/lib/react-toastify/toasts'
+import { convertTimeStringToMinutes } from '@/utils/convert-time-string-to-minutes'
 import { getWeekDays } from '@/utils/get-week-days'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { ArrowRight, Spinner } from 'phosphor-react'
 import { useFieldArray, useForm, Controller } from 'react-hook-form'
 import { z } from 'zod'
+import { AxiosError } from 'axios'
+import { useRouter } from 'next/router'
 
 import { Container, Header } from '../styles'
 import {
@@ -34,11 +38,34 @@ const timeAppointmentsFormSchema = z.object({
     .length(7)
     .transform((intervals) => intervals.filter((interval) => interval.enabled))
     .refine((intervals) => intervals.length > 0, {
-      message: 'Você precisa selecionar pelo menos um dia da semana!',
-    }),
+      message: 'Você precisa selecionar pelo menos um dia da semana.',
+    })
+    .transform((intervals) => {
+      return intervals.map((interval) => {
+        return {
+          weekDay: interval.weekDay,
+          startTimeInMinutes: convertTimeStringToMinutes(interval.startTime),
+          endTimeInMinutes: convertTimeStringToMinutes(interval.endTime),
+        }
+      })
+    })
+    .refine(
+      (intervals) => {
+        // Verifica se todo o array cumpre o intervalo de 30 minutos
+        return intervals.every(
+          (interval) =>
+            interval.endTimeInMinutes - 30 >= interval.startTimeInMinutes,
+        )
+      },
+      {
+        message:
+          'O horário de término deve ser pelo menos 30 minutos distante do início.',
+      },
+    ),
 })
 
-type TimeAppointmentsFormData = z.infer<typeof timeAppointmentsFormSchema>
+type TimeAppointmentsFormInput = z.input<typeof timeAppointmentsFormSchema>
+type TimeAppointmentsFormOutput = z.infer<typeof timeAppointmentsFormSchema>
 
 export default function TimeAppointments() {
   const {
@@ -47,7 +74,7 @@ export default function TimeAppointments() {
     control,
     watch,
     formState: { isSubmitting, errors },
-  } = useForm({
+  } = useForm<TimeAppointmentsFormInput>({
     resolver: zodResolver(timeAppointmentsFormSchema),
     defaultValues: {
       intervals: [
@@ -71,8 +98,39 @@ export default function TimeAppointments() {
     name: 'intervals',
   })
 
-  async function handleSetTimeAppointments(data: TimeAppointmentsFormData) {
-    console.log(data)
+  const router = useRouter()
+
+  async function handleSetTimeAppointments(data: any) {
+    try {
+      const { intervals } = data as TimeAppointmentsFormOutput
+
+      await API.post('/users/time-appointments', {
+        intervals,
+      })
+
+      Toast({
+        type: 'success',
+        message: 'Dias e horários definidos com sucesso',
+      })
+    } catch (err) {
+      if (err instanceof AxiosError && err?.response?.data?.message) {
+        Toast({
+          type: 'error',
+          message: String(err.response.data.message),
+        })
+
+        setTimeout(async () => {
+          await router.push(`/`)
+        }, 1500)
+
+        return
+      }
+
+      Toast({
+        type: 'error',
+        message: 'INTERNAL SERVER ERROR',
+      })
+    }
   }
 
   return (
