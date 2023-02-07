@@ -112,6 +112,8 @@ export default function TimeAppointments() {
         type: 'success',
         message: 'Dias e horários definidos com sucesso',
       })
+
+      await router.push('/register/update-profile')
     } catch (err) {
       if (err instanceof AxiosError && err?.response?.data?.message) {
         Toast({
@@ -128,7 +130,7 @@ export default function TimeAppointments() {
 
       Toast({
         type: 'error',
-        message: 'INTERNAL SERVER ERROR',
+        message: 'Erro inesperado, tente novamente!',
       })
     }
   }

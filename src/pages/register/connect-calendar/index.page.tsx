@@ -1,6 +1,6 @@
 import { useRouter } from 'next/router'
 import { signIn, useSession } from 'next-auth/react'
-import { ArrowRight, Plugs, PlugsConnected } from 'phosphor-react'
+import { ArrowRight, Plugs, PlugsConnected, Spinner } from 'phosphor-react'
 
 import { Button } from '@/components/Button'
 import { HeaderMain } from '@/components/Header'
@@ -10,8 +10,11 @@ import { Text } from '@/components/Text'
 
 import { Container, Header } from '../styles'
 import { AuthError, ConnectBox, ConnectItem } from './styles'
+import { useState } from 'react'
 
 export default function ConnectCalendar() {
+  const [loading, setLoading] = useState(false)
+
   const session = useSession()
   const router = useRouter()
 
@@ -19,6 +22,8 @@ export default function ConnectCalendar() {
   const hasAuthError = !!router.query.error
 
   async function handleConnectCalendar() {
+    setLoading(true)
+
     await signIn('google')
   }
 
@@ -50,6 +55,10 @@ export default function ConnectCalendar() {
               <Button size="sm" disabled>
                 Conectado
                 <PlugsConnected />
+              </Button>
+            ) : loading ? (
+              <Button variant="spinner" size="sm" disabled>
+                <Spinner />
               </Button>
             ) : (
               <Button

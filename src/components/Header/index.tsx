@@ -2,10 +2,10 @@ import Image from 'next/image'
 import { signOut, useSession } from 'next-auth/react'
 import { useRouter } from 'next/router'
 import { SignIn, SignOut } from 'phosphor-react'
+import { Toast } from '@/lib/react-toastify/toasts'
 
 import { Text } from '../Text'
 import { Button } from '../Button'
-import { Toast } from '@/lib/react-toastify/toasts'
 
 import { Container, Content, SessionStatus } from './styles'
 
@@ -32,7 +32,7 @@ export function HeaderMain() {
 
   return (
     <Container>
-      <Content>
+      <Content as="a" href="/">
         <Image src={logoCronos} alt="logo cronos" height={50} quality={100} />
         <Text size="sm">CRONOS</Text>
       </Content>

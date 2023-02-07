@@ -16,6 +16,7 @@ export const Container = styled('header', {
 export const Content = styled('div', {
   marginLeft: '$40',
   fontWeight: '$bold',
+  textDecoration: 'none',
 
   [`> ${Text}`]: {
     color: '$blue700',
@@ -54,8 +55,8 @@ export const SessionStatus = styled('div', {
     gap: '$1',
 
     '&:not(:disabled):hover': {
-      background: '$red300',
-      border: '1px solid $red300',
+      background: '$blue300',
+      border: '1px solid $blue300',
       color: '$white',
     },
   },

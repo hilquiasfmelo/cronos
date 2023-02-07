@@ -83,6 +83,9 @@ export const Button = styled('button', {
       },
 
       spinner: {
+        color: '$gray500',
+        border: '1px solid $gray400',
+
         '> svg': {
           width: '$6',
           height: '$6',

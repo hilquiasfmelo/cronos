@@ -41,9 +41,8 @@ export const Prefix = styled('span', {
 })
 
 export const Input = styled('input', {
-  fontFamily: '$default',
   fontSize: '$sm',
-  color: '$gray500',
+  color: '$gray900',
   fontWeight: 'regular',
   background: 'transparent',
   border: 0,
