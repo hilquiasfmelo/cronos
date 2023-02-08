@@ -64,7 +64,7 @@ export default function UpdateProfile() {
         message: '✨ Parabéns! Processo de cadastro finalizado.',
       })
 
-      await router.push(`/schedule/${session.data?.user.username}`)
+      await router.push(`/schedule/${data.username}`)
     } catch (err) {
       if (err instanceof AxiosError && err?.response?.data?.message) {
         Toast({
@@ -81,7 +81,7 @@ export default function UpdateProfile() {
 
       Toast({
         type: 'error',
-        message: 'Erro inesperado, tente novamente!',
+        message: 'Nome de usuário já em uso, tente outro.',
       })
     }
   }
