@@ -26,7 +26,7 @@ export const CalendarTitle = styled(Text, {
 export const CalendarActions = styled('div', {
   display: 'flex',
   gap: '$4',
-  color: '$blue700',
+  color: '$gray200',
 
   '> button': {
     all: 'unset',
@@ -40,7 +40,8 @@ export const CalendarActions = styled('div', {
     },
 
     '&:focus': {
-      boxShadow: '0 0 0 2px $colors$blue700',
+      boxShadow: '0 0 0 2px $colors$blue300',
+      color: '$blue300',
     },
   },
 })
@@ -49,7 +50,6 @@ export const CalendarBody = styled('table', {
   width: '100%',
   borderSpacing: '0.40rem',
   tableLayout: 'fixed',
-  fontFamily: '$default',
 
   '> thead th': {
     color: '$gray500',
@@ -67,7 +67,7 @@ export const CalendarDay = styled('button', {
   textAlign: 'center',
   cursor: 'pointer',
   borderRadius: '$sm',
-  border: '1px solid $gray200',
+  border: '2px solid $gray200',
 
   '&:disabled': {
     background: 'none',
@@ -75,15 +75,16 @@ export const CalendarDay = styled('button', {
     opacity: 0.4,
   },
 
-  '&:not(:disabled):hover': {
-    color: '$blue700',
+  '&:not(:disabled)&:not(:focus):hover': {
     fontWeight: 'bold',
-    border: '1px solid $blue700',
+    border: '2px solid $blue300',
+    color: '$blue300',
   },
 
   '&:focus': {
-    boxShadow: '0 0 0 1px $colors$blue700',
-    border: '1px solid $blue700',
-    color: '$blue700',
+    background: '$blue300',
+    border: '2px solid $blue300',
+    color: '$white',
+    fontWeight: '$bold',
   },
 })
