@@ -9,22 +9,44 @@ import {
   CalendarHeader,
   CalendarTitle,
 } from './styles'
+import dayjs from 'dayjs'
+import { useState } from 'react'
 
 export function Calendar() {
+  const [currentDate, setCurrentDate] = useState(() => {
+    return dayjs().set('date', 1)
+  })
+
+  console.log(currentDate)
+
   const shortWeekDays = getWeekDays({ short: true })
+
+  /** Manipulando as datas e horários */
+  const currentMonth = currentDate.format('MMMM')
+  const currentYear = currentDate.format('YYYY')
+
+  function handlePreviousMonth() {
+    const previousMonthDate = currentDate.subtract(1, 'month')
+    setCurrentDate(previousMonthDate)
+  }
+
+  function handleNextMonth() {
+    const nextMonthDate = currentDate.add(1, 'month')
+    setCurrentDate(nextMonthDate)
+  }
 
   return (
     <CalendarContainer>
       <CalendarHeader>
         <CalendarTitle>
-          fevereiro <span>2023</span>
+          {currentMonth} <span>{currentYear}</span>
         </CalendarTitle>
 
         <CalendarActions>
-          <button>
+          <button onClick={handlePreviousMonth} title="Mês anterior">
             <CaretLeft />
           </button>
-          <button>
+          <button onClick={handleNextMonth} title="Próximo mês">
             <CaretRight />
           </button>
         </CalendarActions>

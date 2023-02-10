@@ -118,7 +118,7 @@ export default function Register() {
             />
 
             {/* Dispara um Toast de erro caso houver */}
-            {!!errors.username &&
+            {errors.username &&
               Toast({
                 type: 'error',
                 message: String(errors.username.message),
@@ -132,7 +132,7 @@ export default function Register() {
             <TextInput placeholder="Seu nome" {...register('name')} />
 
             {/* Dispara um Toast de erro caso houver */}
-            {!!errors.name &&
+            {errors.name &&
               Toast({
                 type: 'error',
                 message: String(errors.name.message),
