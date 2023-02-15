@@ -20,7 +20,7 @@ const confirmSchedulingFormSchema = z.object({
     .min(3, { message: 'O nome precisa ter pelo menos 3 caracteres.' }),
   email: z.string().email({ message: 'Insira um endereço de e-mail válido.' }),
   contact: z.string().regex(/^([+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s/0-9]*)$/, {
-    message: 'Insira um número de WhatsApp válido.',
+    message: 'Insira um número de telefone válido.',
   }),
 })
 
