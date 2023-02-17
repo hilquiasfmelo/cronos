@@ -1,6 +1,7 @@
-import { prisma } from '@/lib/prisma'
-import dayjs from 'dayjs'
 import { NextApiRequest, NextApiResponse } from 'next'
+import dayjs from 'dayjs'
+
+import { prisma } from '@/lib/prisma'
 
 export default async function handle(
   req: NextApiRequest,
@@ -30,8 +31,6 @@ export default async function handle(
   }
 
   const referenceDate = dayjs(String(date))
-
-  console.log(referenceDate)
 
   const isPastDate = referenceDate.endOf('day').isBefore(new Date())
 
@@ -63,13 +62,15 @@ export default async function handle(
     return starHour + i
   })
 
-  // Busca os horários que não estão disponíveis no intervalo de agendamentos
+  /**
+   * Busca os horários que não estão disponíveis
+   * em todos os intervalos de agendamentos
+   */
   const blockedTimes = await prisma.scheduling.findMany({
     select: {
       date: true,
     },
     where: {
-      user_id: user.id,
       date: {
         // Seja maior ou igual á
         gte: referenceDate.set('hour', starHour).toDate(),
