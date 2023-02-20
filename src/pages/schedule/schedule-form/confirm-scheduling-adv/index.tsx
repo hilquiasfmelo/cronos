@@ -3,6 +3,7 @@ import { Text } from '@/components/Text'
 import { TextInput } from '@/components/TextInput'
 import { Toast } from '@/lib/react-toastify/toasts'
 import { zodResolver } from '@hookform/resolvers/zod'
+import dayjs from 'dayjs'
 import { CalendarBlank, CalendarX, Check, Clock, Spinner } from 'phosphor-react'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
@@ -26,7 +27,15 @@ const confirmSchedulingFormSchema = z.object({
 
 type ConfirmSchedulingFormData = z.infer<typeof confirmSchedulingFormSchema>
 
-export function ConfirmSchedulingAdv() {
+interface ConfirmSchedulingAdvProps {
+  schedulingDate: Date
+  onCancelOrBackConfirmation: () => void
+}
+
+export function ConfirmSchedulingAdv({
+  schedulingDate,
+  onCancelOrBackConfirmation,
+}: ConfirmSchedulingAdvProps) {
   const {
     register,
     handleSubmit,
@@ -39,16 +48,19 @@ export function ConfirmSchedulingAdv() {
     console.log(data)
   }
 
+  const describedDate = dayjs(schedulingDate).format('DD[ de ]MMMM[ de ]YYYY')
+  const describedTime = dayjs(schedulingDate).format('HH:mm[h]')
+
   return (
     <ConfirmForm as="form" onSubmit={handleSubmit(handleSchedulingAdv)}>
       <FormHeader>
         <Text>
           <CalendarBlank />
-          22 de Setembro de 2022
+          {describedDate}
         </Text>
         <Text>
           <Clock />
-          08:00h às 11:00h
+          {describedTime}
         </Text>
       </FormHeader>
 
@@ -109,7 +121,11 @@ export function ConfirmSchedulingAdv() {
       </label>
 
       <FormActions>
-        <Button type="button" variant="tertiary">
+        <Button
+          type="button"
+          variant="tertiary"
+          onClick={onCancelOrBackConfirmation}
+        >
           <CalendarX style={{ width: '1.5rem', height: '1.5rem' }} />
           Cancelar
         </Button>
