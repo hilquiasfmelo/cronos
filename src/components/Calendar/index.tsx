@@ -1,8 +1,11 @@
 import { useMemo, useState } from 'react'
 import { CaretLeft, CaretRight } from 'phosphor-react'
 import dayjs from 'dayjs'
+import { useQuery } from '@tanstack/react-query'
+import { useRouter } from 'next/router'
 
 import { getWeekDays } from '@/utils/get-week-days'
+import { API } from '@/lib/axios'
 
 import {
   CalendarActions,
@@ -12,9 +15,6 @@ import {
   CalendarHeader,
   CalendarTitle,
 } from './styles'
-import { useRouter } from 'next/router'
-import { useQuery } from '@tanstack/react-query'
-import { API } from '@/lib/axios'
 
 interface CalendarWeekProps {
   week: number

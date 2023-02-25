@@ -6,6 +6,12 @@ export default function ScheduleForm() {
   const [selectedDateTime, setSelectedDateTime] = useState<Date | null>()
 
   function handleClearSelectedDateTime() {
+    if (window.confirm('Tem certeza que deseja cancelar o agendamento?')) {
+      setSelectedDateTime(null)
+    }
+  }
+
+  function handletoBackCalendarScheduling() {
     setSelectedDateTime(null)
   }
 
@@ -13,7 +19,8 @@ export default function ScheduleForm() {
     return (
       <ConfirmSchedulingAdv
         schedulingDate={selectedDateTime}
-        onCancelOrBackConfirmation={handleClearSelectedDateTime}
+        onCancelConfirmation={handleClearSelectedDateTime}
+        toBackCalendarScheduling={handletoBackCalendarScheduling}
       />
     )
   }

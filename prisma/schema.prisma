@@ -73,10 +73,12 @@ model UserTimeAppointments {
 model Scheduling {
   id         String   @id @default(uuid())
   date       DateTime
-  number_oab Int
+  number_oab String
   name       String
   email      String
   contact    String
+  room       String
+  atendiment String
   created_at DateTime @default(now())
 
   user    User   @relation(fields: [user_id], references: [id])

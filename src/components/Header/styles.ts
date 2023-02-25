@@ -27,6 +27,27 @@ export const Content = styled('div', {
   gap: '$2',
 })
 
+export const SchedulesContainer = styled('div', {
+  display: 'flex',
+  alignItems: 'center',
+  gap: '$2',
+
+  [`> ${Text}`]: {
+    all: 'unset',
+    color: '$blue700',
+    fontWeight: '$medium',
+    cursor: 'pointer',
+
+    '&:hover': {
+      color: '$blue300',
+    },
+  },
+
+  '&:hover': {
+    color: '$blue300',
+  },
+})
+
 export const SessionStatus = styled('div', {
   marginRight: '$40',
   display: 'flex',

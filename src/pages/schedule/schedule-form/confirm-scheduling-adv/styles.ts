@@ -3,7 +3,7 @@ import { Text } from '@/components/Text'
 import { styled } from '@/styles'
 
 export const ConfirmForm = styled(Box, {
-  maxWidth: 672,
+  maxWidth: 480,
   margin: '$6 auto 0',
   display: 'flex',
   flexDirection: 'column',
@@ -34,6 +34,29 @@ export const FormHeader = styled('div', {
       color: '$gray600',
       width: '$5',
       height: '$5',
+    },
+  },
+})
+
+export const SeparationContainer = styled('div', {
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'flex-start',
+  gap: '$4',
+
+  select: {
+    padding: '$3 $4',
+    borderRadius: '$sm',
+    border: 0,
+    fontSize: '$sm',
+    color: '$gray400',
+    background: '$gray100',
+
+    option: {
+      padding: '$3 $4',
+      backgroundColor: '$blue300',
+      fontWeight: '$bold',
+      color: '$white',
     },
   },
 })
